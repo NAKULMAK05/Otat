@@ -233,8 +233,8 @@
     document.getElementById('search').addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         var query = document.getElementById('search').value;
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`)
-        .then(response => response.json())
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+          .then(response => response.json())
           .then(data => {
             if (data && data.length > 0) {
               var latLng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
@@ -379,3 +379,5 @@
 </body>
 
 </html>
+
+I want to add custom locations on the map with custom names and lat and long , so that when user searches the location he will get that location , for now add some random locations
