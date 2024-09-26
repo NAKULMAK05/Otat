@@ -7,7 +7,72 @@
   <title>AR Navigation with Professional 3D Arrow</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
   <style>
-/* Target the entire routing container */
+    /* Target the entire routing container */
+    .leaflet-routing-container {
+      background-color: #ffffff;
+      /* Solid white background */
+      border: 2px solid #007BFF;
+      /* Blue border for emphasis */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* Light shadow for 3D effect */
+      border-radius: 8px;
+      /* Rounded corners */
+      width: 300px;
+      /* Adjust width */
+      color: #000;
+      /* Black text */
+      padding: 15px;
+      /* Spacing inside */
+      z-index: 1000;
+      /* Ensure it stays on top */
+    }
+
+    /* Target the direction steps inside the container */
+    .leaflet-routing-alternatives-container {
+      background-color: #f9f9f9;
+      /* Slightly lighter background for steps */
+      padding: 10px;
+      /* Spacing for alternatives */
+      border-radius: 6px;
+      /* Rounded corners */
+    }
+
+    /* Target the header of the direction box */
+    .leaflet-routing-container h3 {
+      color: #007BFF;
+      /* Blue heading text */
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-family: 'Arial', sans-serif;
+      /* Clean, readable font */
+    }
+
+    /* Customize the individual steps */
+    .leaflet-routing-alt {
+      padding: 10px;
+      background-color: #e9ecef;
+      /* Light gray background for steps */
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+
+    /* Customize the text in the routing steps */
+    .leaflet-routing-instructions p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #333;
+      /* Darker text for instructions */
+    }
+
+    /* Customize hover effects for the steps */
+
+    /* Make sure the leaflet control doesn't overlap the map */
+    .leaflet-top.leaflet-right .leaflet-routing-container {
+      margin-top: 60px;
+      /* Adjust position based on other controls */
+    }
+
 
     body {
       margin: 0;
@@ -259,39 +324,41 @@
     }
 
     // Draw 3D Arrow
+    // Draw 3D Arrow with increased length
     function drawArrow(ctx, x, y, rotation) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(rotation * Math.PI / 180);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rotation * Math.PI / 180);
 
-      // Set shadow properties for a 3D effect
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; // Shadow color
-      ctx.shadowBlur = 10; // Shadow blur
-      ctx.shadowOffsetX = 12; // Shadow offset in X
-      ctx.shadowOffsetY = 8; // Shadow offset in Y
+  // Set shadow properties for a 3D effect
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; // Shadow color
+  ctx.shadowBlur = 10; // Shadow blur
+  ctx.shadowOffsetX = 12; // Shadow offset in X
+  ctx.shadowOffsetY = 8;  // Shadow offset in Y
 
-      ctx.beginPath();
-      ctx.moveTo(-15, -30); // Start point (increased height)
-      ctx.lineTo(15, -30);  // Right tip
-      ctx.lineTo(15, 0);    // Right base
-      ctx.lineTo(30, 0);    // Right end
-      ctx.lineTo(0, 40);    // Bottom tip (increased height)
-      ctx.lineTo(-30, 0);   // Left end
-      ctx.lineTo(-15, 0);   // Left base
-      ctx.lineTo(-15, -30); // Close path
-      ctx.closePath();
+  ctx.beginPath();
+  // Lengthening the Y dimension of the arrow for a taller appearance
+  ctx.moveTo(-20, -70); // Start point (further up)
+  ctx.lineTo(20, -70);  // Right tip (further up)
+  ctx.lineTo(20, 0);    // Right base
+  ctx.lineTo(40, 0);    // Right end (wider base)
+  ctx.lineTo(0, 100);   // Bottom tip (length increased)
+  ctx.lineTo(-40, 0);   // Left end (wider base)
+  ctx.lineTo(-20, 0);   // Left base
+  ctx.lineTo(-20, -70); // Close path (further up)
+  ctx.closePath();
 
-      // Set the arrow color to blue
-      ctx.fillStyle = '#007BFF'; // Fill color (blue)
-      ctx.fill();
+  // Set the arrow color to blue
+  ctx.fillStyle = '#007BFF'; // Fill color (blue)
+  ctx.fill();
 
-      // Optionally, add stroke for outline
-      ctx.strokeStyle = '#000'; // Outline color
-      ctx.lineWidth = 2; // Outline width
-      ctx.stroke(); // Apply the stroke
+  // Optionally, add stroke for outline
+  ctx.strokeStyle = '#000'; // Outline color
+  ctx.lineWidth = 2;        // Outline width
+  ctx.stroke();             // Apply the stroke
 
-      ctx.restore();
-    }
+  ctx.restore();
+}
 
 
 
